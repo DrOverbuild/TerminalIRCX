@@ -49,5 +49,6 @@ features that are planned to be added:
 * The /ban command
 * Word wrapping
 * Logs (All messages recorded to a txt file)
+* The rest of the events to be handled
 
 These are the features that have come to mind. There probably will be more features in the future.
