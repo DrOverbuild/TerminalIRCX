@@ -6,6 +6,8 @@ package terminalirc;
 
 import eventhandling.EventHandler;
 import java.io.IOException;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import jline.console.ConsoleReader;
 import jline.console.CursorBuffer;
 import org.pircbotx.Configuration;
@@ -17,6 +19,7 @@ import terminalirc.command.LISTUSERS;
 import terminalirc.command.NICK;
 import terminalirc.command.PM;
 import terminalirc.command.QUIT;
+import terminalirc.command.R;
 import terminalirc.command.TOPIC;
 
 
@@ -72,14 +75,15 @@ public class TerminalIRC {
 		
 		// Now start our client up.
         Client client = new Client(myBot);
-		client.addCommand(new NICK(client));
-		client.addCommand(new DEOP(client));
-		client.addCommand(new TOPIC(client));
 		client.addCommand(new CHANNEL(client));
-		client.addCommand(new QUIT(client));
+		client.addCommand(new DEOP(client));
 		client.addCommand(new LINE());
 		client.addCommand(new LISTUSERS(client));
+		client.addCommand(new NICK(client));
 		client.addCommand(new PM(client));
+		client.addCommand(new QUIT(client));
+		client.addCommand(new R(client));
+		client.addCommand(new TOPIC(client));
 		
 		handler.setClient(client);
 		
@@ -157,5 +161,11 @@ public class TerminalIRC {
 
 	public static void updatePrompt() {
 		console.setPrompt(channel + " <" + nick + "> ");
+	}
+	
+	public static String timeStamp(){
+		ZonedDateTime date = ZonedDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
+		return date.format(formatter);
 	}
 }

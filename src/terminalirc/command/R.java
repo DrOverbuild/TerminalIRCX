@@ -37,6 +37,7 @@ public class R implements Command{
 		}
 		
 		message.append(args[args.length-1]);
+		terminalirc.TerminalIRC.printlnWithoutStashing("You said to " + client.getLastPMSender().getNick() + ": " + message.toString());
 		client.getLastPMSender().send().message(message.toString());
 	}
 

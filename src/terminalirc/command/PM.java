@@ -36,6 +36,7 @@ public class PM implements Command{
 		
 		message.append(args[args.length-1]);
 		
+		terminalirc.TerminalIRC.printlnWithoutStashing("You said to " + client.getLastPMSender().getNick() + ": " + message.toString());
 		u.send().message(message.toString());
 		
 	}

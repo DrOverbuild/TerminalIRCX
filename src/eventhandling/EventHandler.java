@@ -40,32 +40,32 @@ public class EventHandler extends ListenerAdapter<PircBotX>{
 
 	@Override
 	public void onMessage(MessageEvent<PircBotX> event) throws Exception {
-		TerminalIRC.println(event.getChannel().getName() + " <" + event.getUser().getNick() + "> " + event.getMessage());
+		TerminalIRC.println(TerminalIRC.timeStamp() + " " + event.getChannel().getName() + " <" + event.getUser().getNick() + "> " + event.getMessage());
 	}
 
 	@Override
 	public void onAction(ActionEvent<PircBotX> event) throws Exception {
-		TerminalIRC.println(event.getChannel().getName() + " * " + event.getUser().getNick() + " " + event.getAction());
+		TerminalIRC.println(TerminalIRC.timeStamp() + " " + event.getChannel().getName() + " * " + event.getUser().getNick() + " " + event.getAction());
 	}
 
 	@Override
 	public void onNickChange(NickChangeEvent<PircBotX> event) throws Exception {
-		TerminalIRC.println(event.getOldNick() + " is now known as " + event.getNewNick());
+		TerminalIRC.println(TerminalIRC.timeStamp() + " " + event.getOldNick() + " is now known as " + event.getNewNick());
 	}
 
 	@Override
 	public void onJoin(JoinEvent<PircBotX> event) throws Exception {
-		TerminalIRC.println(event.getUser().getNick() + " has joined " + event.getChannel().getName());
+		TerminalIRC.println(TerminalIRC.timeStamp() + " " + event.getUser().getNick() + " has joined " + event.getChannel().getName());
 	}
 
 	@Override
 	public void onKick(KickEvent<PircBotX> event) throws Exception {
-		TerminalIRC.println(event.getUser().getNick() + " kicked " + event.getRecipient().getNick() + " (" + event.getReason() + ")");
+		TerminalIRC.println(TerminalIRC.timeStamp() + " " + event.getUser().getNick() + " kicked " + event.getRecipient().getNick() + " (" + event.getReason() + ")");
 	}
 
 	@Override
 	public void onQuit(QuitEvent<PircBotX> event) throws Exception {
-		TerminalIRC.println(event.getUser().getNick() + " left the server (" + event.getReason() + ")");
+		TerminalIRC.println(TerminalIRC.timeStamp() + " " + event.getUser().getNick() + " left the server (" + event.getReason() + ")");
 	}
 
 	@Override
@@ -85,13 +85,13 @@ public class EventHandler extends ListenerAdapter<PircBotX>{
 
 	@Override
 	public void onPart(PartEvent<PircBotX> event) throws Exception {
-		TerminalIRC.println(event.getUser().getNick() + " left " + event.getChannel().getName());
+		TerminalIRC.println(TerminalIRC.timeStamp() + " " + event.getUser().getNick() + " left " + event.getChannel().getName());
 	}
 
 	@Override
 	public void onTopic(TopicEvent<PircBotX> event) throws Exception {
 		if(event.isChanged()){
-			TerminalIRC.println(event.getUser().getNick() + " set the topic of " + event.getChannel().getName() + " to " + event.getTopic());
+			TerminalIRC.println(TerminalIRC.timeStamp() + " " + event.getUser().getNick() + " set the topic of " + event.getChannel().getName() + " to " + event.getTopic());
 		}else{
 			TerminalIRC.println("The topic of " + event.getChannel().getName() + " is " + event.getTopic());
 			TerminalIRC.println("The topic was set by " + event.getUser().getNick());
@@ -100,13 +100,13 @@ public class EventHandler extends ListenerAdapter<PircBotX>{
 
 	@Override
 	public void onPrivateMessage(PrivateMessageEvent<PircBotX> event) throws Exception {
-		TerminalIRC.println(event.getUser().getNick() + " whispers to you: " + event.getMessage());
+		TerminalIRC.println(TerminalIRC.timeStamp() + " " + event.getUser().getNick() + " whispers to you: " + event.getMessage());
 		getClient().setLastPMSender(event.getUser());
 	}
 
 	@Override
 	public void onOp(OpEvent<PircBotX> event) throws Exception {
-		TerminalIRC.println(event.getChannel().getName() + " "
+		TerminalIRC.println(TerminalIRC.timeStamp() + " " + event.getChannel().getName() + " "
 				+ event.getUser().getNick() + " has opped " 
 				+ event.getRecipient().getNick());
 	}
