@@ -49,6 +49,10 @@ public class Client{
 		commands.add(c);
 	}
 	
+	public ArrayList<Command> getCommands(){
+		return commands;
+	}
+	
 	public Command parseCommand(String str){
 		// Get first word of string
 		String commandString = str.split(" ")[0];

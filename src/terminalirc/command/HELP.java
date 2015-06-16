@@ -20,7 +20,9 @@ public class HELP implements Command{
 
 	@Override
 	public void execute(String[] args) {
-		
+		for(Command c:client.getCommands()){
+			terminalirc.TerminalIRC.printlnWithoutStashing("/"+c.getName()+": "+c.getDesc());
+		}
 	}
 
 	@Override

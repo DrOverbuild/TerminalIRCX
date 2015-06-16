@@ -18,6 +18,7 @@ import org.pircbotx.hooks.WaitForQueue;
 import org.pircbotx.hooks.events.DisconnectEvent;
 import terminalirc.command.CHANNEL;
 import terminalirc.command.DEOP;
+import terminalirc.command.HELP;
 import terminalirc.command.LINE;
 import terminalirc.command.LISTUSERS;
 import terminalirc.command.NICK;
@@ -81,6 +82,7 @@ public class TerminalIRC {
         Client client = new Client(myBot);
 		client.addCommand(new CHANNEL(client));
 		client.addCommand(new DEOP(client));
+		client.addCommand(new HELP(client));
 		client.addCommand(new LINE());
 		client.addCommand(new LISTUSERS(client));
 		client.addCommand(new NICK(client));
