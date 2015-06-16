@@ -8,10 +8,14 @@ import eventhandling.EventHandler;
 import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import jline.console.ConsoleReader;
 import jline.console.CursorBuffer;
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
+import org.pircbotx.hooks.WaitForQueue;
+import org.pircbotx.hooks.events.DisconnectEvent;
 import terminalirc.command.CHANNEL;
 import terminalirc.command.DEOP;
 import terminalirc.command.LINE;
@@ -86,6 +90,22 @@ public class TerminalIRC {
 		client.addCommand(new TOPIC(client));
 		
 		handler.setClient(client);
+		
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+			client.getConnection().stopBotReconnect();
+			try{
+			client.getConnection().sendIRC().quitServer();
+			}catch(RuntimeException e){
+				return;
+			}
+			WaitForQueue queue = new WaitForQueue(client.getConnection());
+			try {
+				queue.waitFor(DisconnectEvent.class);
+			} catch (InterruptedException ex) {
+				Logger.getLogger(TerminalIRC.class.getName()).log(Level.SEVERE, null, ex);
+			}
+			queue.close();
+		}));
 		
 		InputThread inputThread = new InputThread(client);
 		new Thread(inputThread).start();
