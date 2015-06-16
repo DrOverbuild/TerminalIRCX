@@ -37,7 +37,12 @@ public class InputThread implements Runnable{
 						client.sendMessage(TerminalIRC.channel, input);
 					}
 				}else {
-					client.onCommand(input);
+					try{
+						client.onCommand(input);
+					}catch(Exception e){
+						System.out.print("Unable to process command: ");
+						e.printStackTrace();
+					}
 				}
 			}
 		} catch (InterruptedException ex) {

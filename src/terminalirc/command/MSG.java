@@ -12,11 +12,11 @@ import terminalirc.TerminalIRC;
  *
  * @author jasper
  */
-public class PM implements Command{
+public class MSG implements Command{
 
 	Client client;
 
-	public PM(Client client) {
+	public MSG(Client client) {
 		this.client = client;
 	}
 	
@@ -26,7 +26,9 @@ public class PM implements Command{
 			TerminalIRC.printlnWithoutStashing("Usage: /pm <nick of recipient> <message>");
 			return;
 		}
+		
 		User u = client.getUserChannelDao().getUser(args[0]);
+		client.setLastPMSender(u);
 		
 		StringBuilder message = new StringBuilder();
 		
@@ -43,7 +45,7 @@ public class PM implements Command{
 
 	@Override
 	public String getName() {
-		return "pm";
+		return "msg";
 	}
 
 	@Override

@@ -12,6 +12,7 @@ import org.pircbotx.hooks.events.ActionEvent;
 import org.pircbotx.hooks.events.JoinEvent;
 import org.pircbotx.hooks.events.KickEvent;
 import org.pircbotx.hooks.events.MessageEvent;
+import org.pircbotx.hooks.events.MotdEvent;
 import org.pircbotx.hooks.events.NickAlreadyInUseEvent;
 import org.pircbotx.hooks.events.NickChangeEvent;
 import org.pircbotx.hooks.events.OpEvent;
@@ -38,6 +39,11 @@ public class EventHandler extends ListenerAdapter<PircBotX>{
 	public Client getClient() {
 		return client;
 	}
+
+//	@Override
+//	public void onGenericMessage(GenericMessageEvent<PircBotX> event) throws Exception {
+//		TerminalIRC.println(TerminalIRC.timeStamp() + " " + event.getUser().getNick() + ": " + event.getMessage());
+//	}
 
 	@Override
 	public void onMessage(MessageEvent<PircBotX> event) throws Exception {
@@ -116,5 +122,13 @@ public class EventHandler extends ListenerAdapter<PircBotX>{
 				+ event.getUser().getNick() + " has opped " 
 				+ event.getRecipient().getNick());
 	}
-	
+
+	@Override
+	public void onMotd(MotdEvent<PircBotX> event) throws Exception {
+		TerminalIRC.println(TerminalIRC.timeStamp() + " [Server] MOTD:");
+		for(String s:event.getMotd().split("\n")){
+			TerminalIRC.println(TerminalIRC.timeStamp() + " [Server] " + s);
+		}
+		
+	}
 }

@@ -21,8 +21,8 @@ import terminalirc.command.DEOP;
 import terminalirc.command.HELP;
 import terminalirc.command.LINE;
 import terminalirc.command.LISTUSERS;
+import terminalirc.command.MSG;
 import terminalirc.command.NICK;
-import terminalirc.command.PM;
 import terminalirc.command.QUIT;
 import terminalirc.command.R;
 import terminalirc.command.TOPIC;
@@ -41,6 +41,7 @@ public class TerminalIRC {
 	public static String hostname = "";
 	public static String channel = "";
 	public static String login = "";
+	public static String password = "";
 	
 	public static boolean verbose = false;
 	public static CursorBuffer stashed;
@@ -53,6 +54,8 @@ public class TerminalIRC {
 	public static void main(String[] args) throws Exception {
 		if(!parseArgs(args)){
 			System.out.println("Usage: java -jar TerminalIRC.jar <server ip> <login> <channel>");
+			System.out.println("       or");
+			System.out.println("       java -jar TerminalIRC.jar <server ip> <login> <channel> <password>");
 			return;
 		}
 		
@@ -63,7 +66,7 @@ public class TerminalIRC {
 		
 		EventHandler handler = new EventHandler();
 		
-		Configuration<PircBotX> config = new Configuration.Builder()
+		Configuration.Builder builder =	new Configuration.Builder()
 			.setName(nick) //Nick of the client. CHANGE IN YOUR CODE
 			.setLogin(nick) //Login part of hostmask, eg name:login@host
 			.setFinger("Connected via TerminalIRCX") // Set finger
@@ -71,9 +74,14 @@ public class TerminalIRC {
 			.setAutoNickChange(true) //Automatically change nick when the current one is in use
 			.setServer(hostname,6667) //The server were connecting to
 			.addAutoJoinChannel(channel) //Join #pircbotx channel on connect
-			.addListener(handler)
-			.buildConfiguration(); //Create an immutable configuration from this builder
-
+			.addListener(handler);
+			
+		if(!password.equals("")){
+			builder.setNickservPassword(password);
+		}
+		
+		Configuration<PircBotX> config = builder.buildConfiguration(); //Create an immutable configuration from this builder
+		
 		PircBotX myBot = new PircBotX(config);
 		
 		printlnWithoutStashing("Loading commands...");
@@ -86,7 +94,7 @@ public class TerminalIRC {
 		client.addCommand(new LINE());
 		client.addCommand(new LISTUSERS(client));
 		client.addCommand(new NICK(client));
-		client.addCommand(new PM(client));
+		client.addCommand(new MSG(client));
 		client.addCommand(new QUIT(client));
 		client.addCommand(new R(client));
 		client.addCommand(new TOPIC(client));
@@ -126,6 +134,9 @@ public class TerminalIRC {
 		channel = args[2].toLowerCase();
 		if(!channel.startsWith("#")){
 			channel = "#" + channel;
+		}
+		if(args.length == 4){
+			password = args[3];
 		}
 		return true;
 	}
