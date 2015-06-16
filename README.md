@@ -47,6 +47,7 @@ features that are planned to be added:
 * The /deop command
 * The /kick command
 * The /ban command
+* Username Identification
 * Word wrapping
 * Logs (All messages recorded to a txt file)
 * The rest of the events to be handled
