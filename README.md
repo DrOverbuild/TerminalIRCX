@@ -42,7 +42,6 @@ switch (channel)`, replacing `(channel)` with a connected channel.
 Currently not every event has been handled, and there are some commands that need to be added. Here's a list of 
 features that are planned to be added:
 
-* The /help command
 * The /whois command
 * The /deop command
 * The /kick command
