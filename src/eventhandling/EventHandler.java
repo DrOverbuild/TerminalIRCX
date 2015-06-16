@@ -12,6 +12,7 @@ import org.pircbotx.hooks.events.ActionEvent;
 import org.pircbotx.hooks.events.JoinEvent;
 import org.pircbotx.hooks.events.KickEvent;
 import org.pircbotx.hooks.events.MessageEvent;
+import org.pircbotx.hooks.events.NickAlreadyInUseEvent;
 import org.pircbotx.hooks.events.NickChangeEvent;
 import org.pircbotx.hooks.events.OpEvent;
 import org.pircbotx.hooks.events.PartEvent;
@@ -51,6 +52,11 @@ public class EventHandler extends ListenerAdapter<PircBotX>{
 	@Override
 	public void onNickChange(NickChangeEvent<PircBotX> event) throws Exception {
 		TerminalIRC.println(TerminalIRC.timeStamp() + " " + event.getOldNick() + " is now known as " + event.getNewNick());
+	}
+
+	@Override
+	public void onNickAlreadyInUse(NickAlreadyInUseEvent<PircBotX> event) throws Exception {
+		TerminalIRC.println(TerminalIRC.timeStamp() + " " + event.getUsedNick()+" is already logged on. Using "+event.getAutoNewNick()+" instead.");
 	}
 
 	@Override
