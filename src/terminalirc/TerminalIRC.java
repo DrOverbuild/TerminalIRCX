@@ -151,18 +151,30 @@ public class TerminalIRC {
 		return toReturn;
 	}
 	
-	public synchronized static void println(String str){
+	public synchronized static void printlnNWW(String str){
 		stashLine();
 		try {
 			console.println(str);
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException ex) {
+			Logger.getLogger(TerminalIRC.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		unstashLine();
 	}
 
 	public synchronized static void println() {
-		println("");
+		try {
+			console.println();
+		} catch (IOException ex) {
+			Logger.getLogger(TerminalIRC.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+	
+	public synchronized static void printlnWithoutStashingNWW(String str) {
+		try {
+			console.println(str);
+		} catch (IOException ex) {
+			Logger.getLogger(TerminalIRC.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 	
 	private static void stashLine() {
@@ -183,13 +195,43 @@ public class TerminalIRC {
 			// ignore
 		}
 	}
-
-	public synchronized static void printlnWithoutStashing(String str) {
-		try {
-			console.println(str);
-		} catch (IOException e) {
-			e.printStackTrace();
+	
+	public synchronized static void println(String str){
+		int width = console.getTerminal().getWidth();
+		if(str.length()<=width){
+			printlnNWW(str);
+			return;
 		}
+		
+		int i = width-1;
+		
+		for(;i>=0;i--){
+			if(str.charAt(i)==' '){
+				String printWhat = str.substring(0,i);
+				printlnNWW(printWhat);
+				break;
+			}
+		}
+		println(str.substring(i+1));
+	}
+	
+	public synchronized static void printlnWithoutStashing(String str){
+		int width = console.getTerminal().getWidth();
+		if(str.length()<=width){
+			printlnWithoutStashingNWW(str);
+			return;
+		}
+		
+		int i = width-1;
+		
+		for(;i>=0;i--){
+			if(str.charAt(i)==' '){
+				String printWhat = str.substring(0,i);
+				printlnWithoutStashingNWW(printWhat);
+				break;
+			}
+		}
+		printlnWithoutStashing(str.substring(i+1));
 	}
 
 	public static void updatePrompt() {
