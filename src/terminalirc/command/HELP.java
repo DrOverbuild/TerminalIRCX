@@ -5,6 +5,7 @@
 package terminalirc.command;
 
 import terminalirc.Client;
+import terminalirc.TerminalIRC;
 
 /**
  *
@@ -20,6 +21,24 @@ public class HELP implements Command{
 
 	@Override
 	public boolean execute(String[] args) {
+		if(args.length == 1){
+			Command c = client.parseCommand(args[0]);
+			if (c == null){
+				TerminalIRC.printlnWithoutStashing("Unknown command.");
+				return true;
+			}
+
+			TerminalIRC.printlnWithoutStashing("");
+			if (c.getName().equalsIgnoreCase(c.getShortcut())){
+				TerminalIRC.printlnWithoutStashing("/"+c.getName());
+			}else {
+				TerminalIRC.printlnWithoutStashing("/" + c.getName() + " or /" + c.getShortcut());
+			}
+			TerminalIRC.printlnWithoutStashing(c.getDesc());
+			TerminalIRC.printlnWithoutStashing("Usage: " + c.getUsage());
+			TerminalIRC.printlnWithoutStashing("");
+			return true;
+		}
 		for(Command c:client.getCommands()){
 			terminalirc.TerminalIRC.printlnWithoutStashing("/"+c.getName()+": "+c.getDesc());
 		}
@@ -43,7 +62,7 @@ public class HELP implements Command{
 
 	@Override
 	public String getDesc() {
-		return "Lists all the commands.";
+		return "Lists all the commands or gives information about a specific command.";
 	}
 	
 }

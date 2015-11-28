@@ -92,7 +92,9 @@ public class Client{
 		
 		String[] args = parseArgs(txt);
 		
-		command.execute(args);
+		if(!command.execute(args)){
+			TerminalIRC.printlnWithoutStashing("Usage: " + command.getUsage());
+		}
 		
 	}
 	
