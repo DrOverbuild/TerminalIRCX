@@ -14,7 +14,7 @@ TerminalIRCX requires Java SE 8 or later. Once Java is installed, download the l
 the releases page. Then open Terminal or Command Prompt, depending on the OS you use. Change the current directory 
 of the console by typing `cd (directory)`, replacing `(directory)` to the directory the downloaded jar file is in.  
 For example, if you are on a Mac, and the jar file is in your downloads folder, you would type `cd ~/Downloads/`. If
-you are on Windows, and the jar file is on your desktop, you would type `cd Destop`.
+you are on Windows, and the jar file is on your desktop, you would type `cd Desktop`.
 
 Now it's time to run TerminalIRCX. You will need to type `java -jar TerminalIRCX.jar (server ip) (nick) (channel)`. 
 Of course you will need to replace `(server ip)` with the ip of the server you want to connect to, `(nick)` with the 
@@ -46,9 +46,8 @@ features that are planned to be added:
 * The /deop command
 * The /kick command
 * The /ban command
-* Username Identification
-* Word wrapping
 * Logs (All messages recorded to a txt file)
 * The rest of the events to be handled
+* Configs (You can save settings like servers and behaviors)
 
 These are the features that have come to mind. There probably will be more features in the future.
