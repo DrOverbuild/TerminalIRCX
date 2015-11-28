@@ -13,7 +13,7 @@ import terminalirc.TerminalIRC;
 public class LINE implements Command{
 
 	@Override
-	public void execute(String[] args) {
+	public boolean execute(String[] args) {
 		int width = TerminalIRC.console.getTerminal().getWidth();
 		StringBuilder builder = new StringBuilder();
 		for(int i = 0; i < width; i++){
@@ -21,6 +21,7 @@ public class LINE implements Command{
 		}
 		
 		TerminalIRC.printlnWithoutStashing(builder.toString());
+		return true;
 	}
 
 	@Override
@@ -31,6 +32,11 @@ public class LINE implements Command{
 	@Override
 	public String getShortcut() {
 		return "l";
+	}
+
+	@Override
+	public String getUsage() {
+		return "/line";
 	}
 
 	@Override

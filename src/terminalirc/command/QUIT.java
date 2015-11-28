@@ -22,7 +22,7 @@ public class QUIT implements Command{
 	Client c;
 	
 	@Override
-	public void execute(String[] args) {
+	public boolean execute(String[] args) {
 		try {
 			System.out.println("Shutting down...");
 			c.getConnection().stopBotReconnect();
@@ -40,6 +40,7 @@ public class QUIT implements Command{
         } finally{
 			System.exit(0);
 		}
+		return true;
 	}
 
 	@Override
@@ -50,6 +51,11 @@ public class QUIT implements Command{
 	@Override
 	public String getShortcut() {
 		return "exit";
+	}
+
+	@Override
+	public String getUsage() {
+		return "/quit";
 	}
 
 	@Override

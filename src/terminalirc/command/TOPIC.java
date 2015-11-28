@@ -20,7 +20,7 @@ public class TOPIC implements Command{
 	}
 	
 	@Override
-	public void execute(String[] args) {
+	public boolean execute(String[] args) {
 		if(args.length > 0){
 			String s = "";
 			for (int i = 0; i < args.length-1; i++) {
@@ -30,8 +30,9 @@ public class TOPIC implements Command{
 			
 			c.getUserChannelDao().getChannel(TerminalIRC.channel).send().setTopic(s);
 		}else{
-			TerminalIRC.printlnWithoutStashing("Usage: /topic <new topic>");
+			return false;
 		}
+		return true;
 	}
 
 	@Override
@@ -42,6 +43,11 @@ public class TOPIC implements Command{
 	@Override
 	public String getShortcut() {
 		return "topic";
+	}
+
+	@Override
+	public String getUsage() {
+		return "/topic <new topic>";
 	}
 
 	@Override

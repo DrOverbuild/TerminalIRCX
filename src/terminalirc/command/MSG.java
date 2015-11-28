@@ -21,10 +21,9 @@ public class MSG implements Command{
 	}
 	
 	@Override
-	public void execute(String[] args) {
+	public boolean execute(String[] args) {
 		if(args.length<2){
-			TerminalIRC.printlnWithoutStashing("Usage: /pm <nick of recipient> <message>");
-			return;
+			return false;
 		}
 		
 		User u = client.getUserChannelDao().getUser(args[0]);
@@ -40,7 +39,8 @@ public class MSG implements Command{
 		
 		terminalirc.TerminalIRC.printlnWithoutStashing("You said to " + client.getLastPMSender().getNick() + ": " + message.toString());
 		u.send().message(message.toString());
-		
+
+		return true;
 	}
 
 	@Override
@@ -51,6 +51,11 @@ public class MSG implements Command{
 	@Override
 	public String getShortcut() {
 		return "w";
+	}
+
+	@Override
+	public String getUsage() {
+		return "/msg <nick of recipient> <message>";
 	}
 
 	@Override

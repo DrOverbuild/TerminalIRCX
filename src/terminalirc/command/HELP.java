@@ -19,10 +19,11 @@ public class HELP implements Command{
 	}
 
 	@Override
-	public void execute(String[] args) {
+	public boolean execute(String[] args) {
 		for(Command c:client.getCommands()){
 			terminalirc.TerminalIRC.printlnWithoutStashing("/"+c.getName()+": "+c.getDesc());
 		}
+		return true;
 	}
 
 	@Override
@@ -33,6 +34,11 @@ public class HELP implements Command{
 	@Override
 	public String getShortcut() {
 		return "help";
+	}
+
+	@Override
+	public String getUsage() {
+		return "/help or /help <command>";
 	}
 
 	@Override

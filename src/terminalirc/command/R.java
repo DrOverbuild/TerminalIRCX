@@ -19,15 +19,14 @@ public class R implements Command{
 	}
 	
 	@Override
-	public void execute(String[] args) {
+	public boolean execute(String[] args) {
 		if(args.length<1){
-			terminalirc.TerminalIRC.printlnWithoutStashing("Usage: /r <message>");
-			return;
+			return false;
 		}
 		
 		if(client.getLastPMSender() == null){
 			terminalirc.TerminalIRC.printlnWithoutStashing("No one has sent you a message!");
-			return;
+			return true;
 		}
 		
 		StringBuilder message = new StringBuilder();
@@ -39,6 +38,7 @@ public class R implements Command{
 		message.append(args[args.length-1]);
 		terminalirc.TerminalIRC.printlnWithoutStashing("You said to " + client.getLastPMSender().getNick() + ": " + message.toString());
 		client.getLastPMSender().send().message(message.toString());
+		return true;
 	}
 
 	@Override
@@ -49,6 +49,11 @@ public class R implements Command{
 	@Override
 	public String getShortcut() {
 		return "r";
+	}
+
+	@Override
+	public String getUsage() {
+		return "/r <message>";
 	}
 
 	@Override

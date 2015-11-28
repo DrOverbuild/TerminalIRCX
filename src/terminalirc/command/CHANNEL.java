@@ -27,7 +27,7 @@ public class CHANNEL implements Command{
 	
 
 	@Override
-	public void execute(String[] args) {
+	public boolean execute(String[] args) {
 		if(args.length == 1){
 			if(args[0].equalsIgnoreCase("leave")){
 				
@@ -37,13 +37,12 @@ public class CHANNEL implements Command{
 					sentence.append(channel.getName()).append(" ");
 				}
 				TerminalIRC.printlnWithoutStashing(sentence.toString());
-				return;
+				return true;
 			}
 		}
 		
 		if(args.length != 2){
-			TerminalIRC.println("Usage: /channel <switch:join:leave> <channel>");
-			return;
+			return false;
 		}
 		
 		String newChannel = args[1].toLowerCase();
@@ -57,7 +56,7 @@ public class CHANNEL implements Command{
 				terminalirc.TerminalIRC.channel = newChannel;
 				TerminalIRC.printlnWithoutStashing("You are now chatting in " + newChannel);
 				TerminalIRC.updatePrompt();
-				return;
+				return true;
 			}
 			TerminalIRC.println("You have not joined that channel. Type /channel join " + newChannel + " to join.");
 		}else if(args[0].equalsIgnoreCase("join")){
@@ -84,14 +83,17 @@ public class CHANNEL implements Command{
 						terminalirc.TerminalIRC.channel = "";
 						TerminalIRC.printlnWithoutStashing("You have not joined any channel.");
 						TerminalIRC.updatePrompt();
-						return;
+						return true;
 					}
 					terminalirc.TerminalIRC.channel = c.getConnection().getUserChannelDao().getAllChannels().first().getName();
 					TerminalIRC.println("You are now chatting in " + terminalirc.TerminalIRC.channel);
 					TerminalIRC.updatePrompt();
 				}
 			}
+		}else {
+			return false;
 		}
+		return true;
 	}
 
 	@Override
@@ -102,6 +104,11 @@ public class CHANNEL implements Command{
 	@Override
 	public String getShortcut() {
 		return "channel";
+	}
+
+	@Override
+	public String getUsage() {
+		return "/channel <switch|join|leave|list> <channel>";
 	}
 
 	@Override

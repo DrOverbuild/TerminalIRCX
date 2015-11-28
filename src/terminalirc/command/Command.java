@@ -9,11 +9,11 @@ package terminalirc.command;
  */
 public interface Command {
 	
-	public abstract void execute(String[] args);
+	boolean execute(String[] args);
 
-	public abstract String getName();
-	public abstract String getShortcut();
-
-	public String getDesc();
+	String getName();
+	String getShortcut();
+	String getUsage();
+	String getDesc();
 
 }

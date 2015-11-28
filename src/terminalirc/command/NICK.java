@@ -19,14 +19,15 @@ public class NICK implements Command{
 	}
 
 	@Override
-	public void execute(String[] args) {
+	public boolean execute(String[] args) {
 		if(args.length == 1){
 			connection.getConnection().sendIRC().changeNick(args[0]);
 			TerminalIRC.nick = args[0];
 			TerminalIRC.updatePrompt();
 		}else{
-			TerminalIRC.printlnWithoutStashing("Usage: /nick <new nick>");
+			return false;
 		}
+		return true;
 	}
 
 	@Override
@@ -37,6 +38,11 @@ public class NICK implements Command{
 	@Override
 	public String getShortcut() {
 		return "nick";
+	}
+
+	@Override
+	public String getUsage() {
+		return "/nick <new nick>";
 	}
 
 	@Override

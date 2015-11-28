@@ -23,7 +23,7 @@ public class LISTUSERS implements Command{
 	}
 
 	@Override
-	public void execute(String[] args) {
+	public boolean execute(String[] args) {
 		Channel channel = c.getUserChannelDao().getChannel(TerminalIRC.channel);
 		ImmutableSortedSet<User> users = c.getUserChannelDao().getUsers(channel);
 		StringBuilder sentence = new StringBuilder("Users currently connected to " + TerminalIRC.channel + ": ");
@@ -36,6 +36,7 @@ public class LISTUSERS implements Command{
 			sentence.append(u.getNick()).append(" ");
 		}
 		TerminalIRC.printlnWithoutStashing(sentence.toString());
+		return true;
 	}
 
 	@Override
@@ -46,6 +47,11 @@ public class LISTUSERS implements Command{
 	@Override
 	public String getShortcut() {
 		return "users";
+	}
+
+	@Override
+	public String getUsage() {
+		return "/listusers";
 	}
 
 	@Override
