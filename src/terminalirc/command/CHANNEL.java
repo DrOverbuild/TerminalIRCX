@@ -30,7 +30,7 @@ public class CHANNEL implements Command{
 	public boolean execute(String[] args) {
 		if(args.length == 1){
 			if(args[0].equalsIgnoreCase("leave")){
-				
+				this.execute(new String[]{"leave",TerminalIRC.channel});
 			}else if (args[0].equalsIgnoreCase("list")){
 				StringBuilder sentence = new StringBuilder("Channels you are currently connected to: ");
 				for (Channel channel:c.getConnection().getUserBot().getChannels()){

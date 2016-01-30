@@ -26,7 +26,7 @@ public class QUIT implements Command{
 		try {
 			System.out.println("Shutting down...");
 			c.getConnection().stopBotReconnect();
-			c.getConnection().sendIRC().quitServer();
+			c.getConnection().sendIRC().quitServer("http://tiny.cc/terminalircx -- An IRC Client for the Command Prompt");
 			WaitForQueue queue = new WaitForQueue(c.getConnection());
 			queue.waitFor(DisconnectEvent.class);
 			queue.close();

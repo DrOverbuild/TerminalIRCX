@@ -16,16 +16,7 @@ import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.WaitForQueue;
 import org.pircbotx.hooks.events.DisconnectEvent;
-import terminalirc.command.CHANNEL;
-import terminalirc.command.DEOP;
-import terminalirc.command.HELP;
-import terminalirc.command.LINE;
-import terminalirc.command.LISTUSERS;
-import terminalirc.command.MSG;
-import terminalirc.command.NICK;
-import terminalirc.command.QUIT;
-import terminalirc.command.R;
-import terminalirc.command.TOPIC;
+import terminalirc.command.*;
 
 
 /**
@@ -91,12 +82,15 @@ public class TerminalIRC {
 		client.addCommand(new CHANNEL(client));
 		client.addCommand(new DEOP(client));
 		client.addCommand(new HELP(client));
+		client.addCommand(new JOIN(client));
+		client.addCommand(new LEAVE(client));
 		client.addCommand(new LINE());
 		client.addCommand(new LISTUSERS(client));
 		client.addCommand(new NICK(client));
 		client.addCommand(new MSG(client));
 		client.addCommand(new QUIT(client));
 		client.addCommand(new R(client));
+		client.addCommand(new SWITCH(client));
 		client.addCommand(new TOPIC(client));
 		
 		handler.setClient(client);
