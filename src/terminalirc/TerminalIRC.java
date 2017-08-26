@@ -86,6 +86,7 @@ public class TerminalIRC {
 		client.addCommand(new LEAVE(client));
 		client.addCommand(new LINE());
 		client.addCommand(new LISTUSERS(client));
+		client.addCommand(new LOG(client));
 		client.addCommand(new NICK(client));
 		client.addCommand(new MSG(client));
 		client.addCommand(new QUIT(client));

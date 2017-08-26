@@ -6,6 +6,8 @@ package terminalirc;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
+
 import org.pircbotx.PircBotX;
 import org.pircbotx.User;
 import org.pircbotx.UserChannelDao;
@@ -20,6 +22,9 @@ public class Client{
 	private ArrayList<Command> commands = new ArrayList<>();
 	private PircBotX connection;
 	private User lastPMSender = null;
+
+	// LOGGING
+//	private Map<String, >
 
 	public Client(PircBotX connection) {
 		this.connection = connection;
